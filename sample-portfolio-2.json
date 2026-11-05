@@ -1,0 +1,41 @@
+{
+  "id": "portfolio002",
+  "displayName": "Alex Learner",
+  "whatIEnjoy": "Drawing, making short videos and working in a team",
+  "whatIveTried": "A poster design, a short video, and a class presentation",
+  "whatImCuriousAbout": "Data analysis and mobile app design",
+  "items": [
+    {
+      "id": "item001",
+      "title": "Campus Event Poster",
+      "type": "Club Activity",
+      "date": "2026-08-12",
+      "role": "Designer",
+      "description": "Designed a poster for a student club event and shared it online.",
+      "skills": ["Graphic Design", "Teamwork", "Communication"],
+      "reflection": {
+        "whatIDid": "Chose the colors and layout, and fixed the poster after feedback.",
+        "whatILearned": "A clear title and good colors make a poster easier to read.",
+        "challenge": "Fitting all the event details without making it crowded.",
+        "nextStep": "Learn more about fonts and spacing."
+      },
+      "evidence": ["https://example.com/campus-event-poster"]
+    },
+    {
+      "id": "item002",
+      "title": "Weather Data Presentation",
+      "type": "Course Assignment",
+      "date": "2026-10-05",
+      "role": "Presenter",
+      "description": "Collected simple weather data for one month and presented it with charts to the class.",
+      "skills": ["Data Analysis", "Presentation", "Spreadsheet"],
+      "reflection": {
+        "whatIDid": "Collected the data, made the charts and presented them.",
+        "whatILearned": "Charts help people understand numbers faster than tables.",
+        "challenge": "Feeling nervous while speaking in front of the class.",
+        "nextStep": "Practice presenting and try a new chart tool."
+      },
+      "evidence": ["https://example.com/weather-data-presentation"]
+    }
+  ]
+}

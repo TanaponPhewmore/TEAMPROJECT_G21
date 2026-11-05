@@ -1,0 +1,41 @@
+{
+  "id": "portfolio001",
+  "displayName": "Jamie Student",
+  "whatIEnjoy": "Designing websites and solving small coding puzzles",
+  "whatIveTried": "A personal website, a group project, and a small quiz game",
+  "whatImCuriousAbout": "Cloud computing and web accessibility",
+  "items": [
+    {
+      "id": "item001",
+      "title": "My First Website",
+      "type": "Course Assignment",
+      "date": "2026-10-18",
+      "role": "Developer",
+      "description": "Created a personal website with a home page, an about page and a contact form.",
+      "skills": ["HTML", "CSS", "Bootstrap"],
+      "reflection": {
+        "whatIDid": "Built the pages and styled them with Bootstrap.",
+        "whatILearned": "How to make a page look good on both desktop and mobile.",
+        "challenge": "The layout broke on small phone screens.",
+        "nextStep": "Improve the design and add more content."
+      },
+      "evidence": ["https://example.com/my-first-website"]
+    },
+    {
+      "id": "item002",
+      "title": "Quiz Game",
+      "type": "Personal Project",
+      "date": "2026-09-30",
+      "role": "Solo Developer",
+      "description": "Made a small quiz game that shows one question at a time and counts the score.",
+      "skills": ["JavaScript", "Problem Solving"],
+      "reflection": {
+        "whatIDid": "Wrote the question list and the code that checks each answer.",
+        "whatILearned": "How to use arrays and functions to keep code short.",
+        "challenge": "Keeping the score correct when the user clicks quickly.",
+        "nextStep": "Add a timer and a high score list."
+      },
+      "evidence": ["https://example.com/quiz-game"]
+    }
+  ]
+}
