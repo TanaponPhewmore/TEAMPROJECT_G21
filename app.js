@@ -17,6 +17,7 @@ if (savedData !== null) {
     }
 
     fillDropdown();
+    renderPortfolios();
 }
  
 // this function should be called after you pushed something new to all_portfolios or mutate any of its values
@@ -29,6 +30,7 @@ function savePortfolios() {
     }
 
     fillDropdown();
+    renderPortfolios();
     return true;
 }
 
@@ -164,3 +166,64 @@ form_item.addEventListener('submit', function (event) {
     document.querySelector('#target-portfolio').value = portfolioId;
 });
 
+// put text into the element that matches the selector
+function setText(parent, selector, text) {
+    parent.querySelector(selector).textContent = text;
+}
+
+// show every portfolio (and its items) on the page
+function renderPortfolios() {
+    const list = document.querySelector('#portfolio-list');
+    list.innerHTML = '';
+
+    if (all_portfolios.length === 0) {
+        list.innerHTML = '<p id="empty-portfolio-message">No portfolios available yet.</p>';
+        return;
+    }
+
+    all_portfolios.forEach(function (p) {
+        const card = document.querySelector('#portfolio-template').content.cloneNode(true);
+        setText(card, '.display-portfolio-name', p.displayName);
+        setText(card, '.display-enjoy', p.whatIEnjoy);
+        setText(card, '.display-tried', p.whatIveTried);
+        setText(card, '.display-curious', p.whatImCuriousAbout);
+        card.querySelector('.empty-item-message').hidden = p.items.length > 0;
+
+        p.items.forEach(function (item) {
+            card.querySelector('.item-list').appendChild(buildItem(item));
+        });
+        list.appendChild(card);
+    });
+}
+
+// build one item card from the item template
+function buildItem(item) {
+    const el = document.querySelector('#item-template').content.cloneNode(true);
+    setText(el, '.display-item-title', item.title);
+    setText(el, '.display-item-type', item.type);
+    setText(el, '.display-item-date', item.date);
+    setText(el, '.display-item-role', item.role);
+    setText(el, '.display-item-description', item.description);
+    setText(el, '.display-whatIDid', item.reflection.whatIDid);
+    setText(el, '.display-whatILearned', item.reflection.whatILearned);
+    setText(el, '.display-challenge', item.reflection.challenge);
+    setText(el, '.display-nextStep', item.reflection.nextStep);
+
+    item.skills.forEach(function (skill) {
+        const li = document.createElement('li');
+        li.textContent = skill;
+        el.querySelector('.display-item-skills').appendChild(li);
+    });
+
+    item.evidence.forEach(function (url) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = url;
+        a.textContent = url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        li.appendChild(a);
+        el.querySelector('.display-evidence').appendChild(li);
+    });
+    return el;
+}
