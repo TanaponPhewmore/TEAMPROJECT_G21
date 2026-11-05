@@ -276,17 +276,66 @@
             </section>
 
             <!-- Portfolio List -->
-            <section>
-                <div>
-                    <span>Portfolio</span>
-                    <h2 id="name">Alex Student</h2>
-                    <p><strong>What I enjoy:</strong> <span id="enjoy">Web design and teamwork</span></p>
-                    <p><strong>What I've tried:</strong> <span id="tried">My first website</span></p>
-                    <p><strong>What I'm curious about:</strong> <span id="curious">Cloud computing</span></p>
-                    <p>Your portfolio updates in this browser. Saved portfolios return after refresh.</p>
+            <section id="portfolio-section">
+                <h2>My Portfolios</h2>
+                <div id="portfolio-list">
+                    <p id="empty-portfolio-message">No portfolios available yet.</p>
                 </div>
             </section>
-   
+
+            <!-- Portfolio Template -->
+            <template id="portfolio-template">
+                <article class="portfolio-card">
+
+                    <h3 class="display-portfolio-name"></h3>
+                    <div class="portfolio-information">
+                        <h4>What I Enjoy</h4>
+                        <p class="display-enjoy"></p>
+
+                        <h4>What I've Tried</h4>
+                        <p class="display-tried"></p>
+
+                        <h4>What I'm Curious About</h4>
+                        <p class="display-curious"></p>
+                    </div>
+                    <section class="portfolio-items-section">
+                        <h4>Portfolio Items</h4>
+                        <div class="item-list"></div>
+                        <p class="empty-item-message">No portfolio items have been added yet.</p>
+                    </section>
+
+                </article>
+            </template>
+
+            <!-- Portfolio Item Template -->
+            <template id="item-template">
+                <article class="item-card">
+                    <h4 class="display-item-title"></h4>
+                    <p> <strong>Type:</strong> <span class="display-item-type"></span> </p>
+                    <p> <strong>Date:</strong> <time class="display-item-date"></time> </p>
+                    <p> <strong>Role:</strong> <span class="display-item-role"></span> </p>
+
+                    <h5>Description</h5>
+                    <p class="display-item-description"></p>
+
+                    <h5>Skills</h5>
+                    <ul class="display-item-skills"></ul>
+
+                    <section class="item-reflection">
+                        <h5>Reflection</h5>
+                        <p> <strong>What I Did:</strong> <span class="display-whatIDid"></span> </p>
+                        <p> <strong>What I Learned:</strong> <span class="display-whatILearned"></span> </p>
+                        <p> <strong>Challenge:</strong> <span class="display-challenge"></span> </p>
+                        <p> <strong>Next Step:</strong> <span class="display-nextStep"></span> </p>
+                    </section>
+
+                    <section class="item-evidence">
+                        <h5>Evidence</h5>
+                        <ul class="display-evidence"></ul>
+                    </section>
+                </article>
+
+            </template>
         </div>
     </main>
     
