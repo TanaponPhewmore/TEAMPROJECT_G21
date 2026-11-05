@@ -12,7 +12,7 @@ cd TEAMPROJECT_G21
 
 จากนั้นเปิดไฟล์ `index.html` ด้วยเบราว์เซอร์ (หรือใช้ Live Server ใน VS Code ก็ได้)
 
-**Essentials(สิ่งที่ต้องมี)**
+**Essentials (สิ่งที่ต้องมี)**
 
 - ต่ออินเทอร์เน็ตไว้ เพราะเว็บโหลด Bootstrap จาก CDN
 - ใช้เบราว์เซอร์เวอร์ชันใหม่ เพราะ Bootstrap 6 (alpha) รองรับ
@@ -37,7 +37,7 @@ cd TEAMPROJECT_G21
 7. **ลองบนมือถือ** – เปิดหน้าเว็บบนมือถือ หรือกด F12 แล้วกดไอคอนมือถือ
    (Toggle device toolbar) เพื่อดูหน้าจอเล็ก
 
-## Repo Structure(โครงสร้างไฟล์)
+## Repo Structure (โครงสร้างไฟล์)
 
 ```
 TEAMPROJECT_G21/
