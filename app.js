@@ -56,7 +56,7 @@ form_portfolio.addEventListener('submit', function (event) {
     const err = document.querySelector('#portfolio-error');
  
     if (name === '') {
-        err.textContent = 'Please, enter your name.';
+        err.textContent = 'Please enter your name.';
         return;
     }
  
@@ -150,7 +150,7 @@ form_item.addEventListener('submit', function (event) {
     const item = createItem(portfolio);
     const errors = validateItem(item);
     if (errors.length > 0) {
-        err.textContent = errors.join(' ');
+        err.textContent = errors.join('\n');
         return;
     }
     err.textContent = '';

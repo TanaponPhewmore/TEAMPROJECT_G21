@@ -105,6 +105,7 @@ section > div > p { color: var(--muted); }
 .form-error {
   color: var(--error);
   min-height: 1.2em;
+  white-space: pre-line;
 }
 
 /* Buttons */
