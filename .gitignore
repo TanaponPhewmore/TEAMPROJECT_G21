@@ -1,0 +1,13 @@
+# secrets: never commit these (if one is pushed by mistake, replace/revoke it - deleting the file is not enough)
+*.pem
+*.ppk
+*.key
+.env
+.env.*
+
+# data used only on a laptop (php -S)
+local-data/
+
+# editor / OS files
+.DS_Store
+.vscode/
