@@ -1,4 +1,6 @@
 <?php
+// วิธีรันบนเครื่อง: php -S localhost:8000, เปิดที่ http://localhost:8000, ใช้ Live Server ไม่ได้, ข้อมูลอยู่ที่ local-data/portfolios.json
+
 // api/storage.php
 // The ONLY file that opens the data file. Other API files load it with: require 'storage.php';
 

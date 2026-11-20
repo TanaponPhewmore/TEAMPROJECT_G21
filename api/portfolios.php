@@ -1,4 +1,6 @@
 <?php
+// GET ดึงทั้งหมด, POST สร้าง 1 อัน พร้อมรายชื่อฟิลด์และรหัสข้อผิดพลาด (400, 405)
+
 // api/portfolios.php
 //   GET  -> every portfolio (with its items)
 //   POST -> create ONE portfolio

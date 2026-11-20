@@ -1,4 +1,6 @@
 <?php
+// POST เพิ่ม Item พร้อมรายชื่อฟิลด์ (ส่งเป็นฟอร์มหรือ JSON ก็ได้) และรหัสข้อผิดพลาด (400, 404, 405)
+
 // api/items.php
 //   POST -> add ONE item to the portfolio with that portfolioId
 //   Accepts form fields (FormData) or a JSON item (used by Import).
