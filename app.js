@@ -36,6 +36,7 @@ function fillDropdown() {
         select.appendChild(option);
     }
     select.value = chosen;
+    fillImportDropdown();
 }
 
 // event listener for the Create portfolio button
@@ -270,3 +271,171 @@ function buildItem(item) {
     });
     return el;
 }
+
+const form_import = document.querySelector('#import-form');
+ 
+// this function will fill the dropdown menu of the import with the saved portfolios, so you can select which one to add it to.
+function fillImportDropdown() {
+    const select = document.querySelector('#import-portfolio');
+    if (select === null) {
+        return;
+    }
+    const chosen = select.value;
+    select.innerHTML = '<option value="">Choose a portfolio</option>';
+    for (let i = 0; i < all_portfolios.length; i++) {
+        const option = document.createElement('option');
+        option.value = all_portfolios[i].id;
+        option.textContent = all_portfolios[i].displayName;
+        select.appendChild(option);
+    }
+    select.value = chosen;
+}
+ 
+function importText(value) {
+    if (typeof value === 'string') {
+        return value.trim();
+    }
+    return '';
+}
+ 
+// reads the pasted json text into an object
+function readImportedItem(text) {
+    let data;
+    try {
+        data = JSON.parse(text);
+    } catch (error) {
+        return { item: null, errors: ['This is not valid JSON. Paste the whole text exactly as you received it.'] };
+    }
+ 
+    if (data === null || typeof data !== 'object' || Array.isArray(data)) {
+        return { item: null, errors: ['The JSON must be ONE item that starts with { and ends with }.'] };
+    }
+ 
+    let skillsIn = data.skills;
+    if (typeof skillsIn === 'string') {
+        skillsIn = skillsIn.split(',');
+    }
+    if (Array.isArray(skillsIn) === false) {
+        skillsIn = [];
+    }
+ 
+    let evidenceIn = data.evidence;
+    if (typeof evidenceIn === 'string') {
+        evidenceIn = [evidenceIn];
+    }
+    if (Array.isArray(evidenceIn) === false) {
+        evidenceIn = [];
+    }
+ 
+    // reflection: must be an object with 4 parts
+    const reflectionOk = data.reflection !== null && typeof data.reflection === 'object' && Array.isArray(data.reflection) === false;
+    const r = reflectionOk ? data.reflection : {};
+ 
+    const item = {
+        id: '',
+        title: importText(data.title),
+        type: importText(data.type),
+        date: importText(data.date),
+        role: importText(data.role),
+        description: importText(data.description),
+        skills: skillsIn.map(importText).filter(function (s) {return s !== '';}),
+        reflection: {
+            whatIDid: importText(r.whatIDid),
+            whatILearned: importText(r.whatILearned),
+            challenge: importText(r.challenge),
+            nextStep: importText(r.nextStep)
+        },
+        evidence: evidenceIn.map(importText).filter(function (u) {return u !== '';})
+    };
+ 
+    const errors = [];
+    if (reflectionOk === false) {
+        errors.push('Reflection must have 4 parts: whatIDid, whatILearned, challenge, nextStep.');
+    }
+ 
+    const reflectionMessages = [
+        'What I did is required.',
+        'What I learned is required.',
+        'Challenge is required.',
+        'Next step is required.'
+    ];
+    const found = validateItem(item);
+    for (let i = 0; i < found.length; i++) {
+        if (reflectionOk === false && reflectionMessages.indexOf(found[i]) !== -1) {
+            continue;
+        }
+        if (found[i] === 'Evidence must be a URL starting with http.') {
+            continue;
+        }
+        errors.push(found[i]);
+    }
+ 
+    if (item.date !== '' && /^\d{4}-\d{2}-\d{2}$/.test(item.date) === false) {
+        errors.push('Date must look like 2026-11-24 (YYYY-MM-DD).');
+    }
+ 
+    if (item.evidence.length === 0) {
+        errors.push('Evidence is required (a link starting with http:// or https://).');
+    } else {
+        for (let i = 0; i < item.evidence.length; i++) {
+            if (item.evidence[i].startsWith('http://') === false && item.evidence[i].startsWith('https://') === false) {
+                errors.push('Evidence must be a link starting with http:// or https:// (a file name like result.png is not a link).');
+                break;
+            }
+        }
+    }
+ 
+    return { item: item, errors: errors };
+}
+ 
+// function for the import button
+form_import.addEventListener('submit', function (event) {
+    event.preventDefault();
+ 
+    const err = document.querySelector('#import-error');
+    const done = document.querySelector('#import-success');
+    const portfolioId = document.querySelector('#import-portfolio').value;
+    const text = document.querySelector('#import-json').value.trim();
+ 
+    err.textContent = '';
+    done.textContent = '';
+ 
+    if (portfolioId === '') {
+        err.textContent = 'Please select a portfolio.';
+        return;
+    }
+ 
+    const portfolio = all_portfolios.find(function (p) {
+        return p.id === portfolioId;
+    });
+ 
+    if (portfolio === undefined) {
+        err.textContent = 'Selected portfolio was not found.';
+        return;
+    }
+ 
+    if (text === '') {
+        err.textContent = 'Please paste the Portfolio Item JSON.';
+        return;
+    }
+ 
+    const result = readImportedItem(text);
+    if (result.errors.length > 0) {
+        err.textContent = result.errors.join('\n');
+        return;
+    }
+ 
+    // the item json doesnt require to have id. its made here 
+    result.item.id = 'item' + String(portfolio.items.length + 1).padStart(3, '0');
+ 
+    portfolio.items.push(result.item);
+    if (savePortfolios() === false) {
+        portfolio.items.pop();
+        err.textContent = 'Could not save. Please try again.';
+        return;
+    }
+ 
+    form_import.reset();
+    document.querySelector('#import-portfolio').value = portfolioId;
+    done.textContent = 'Imported "' + result.item.title + '" into ' + portfolio.displayName + '.';
+});

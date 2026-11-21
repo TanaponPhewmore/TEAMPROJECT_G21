@@ -275,6 +275,54 @@
                 </div>
             </section>
 
+            <section>
+                <div>
+                    <h2>Import portfolio item</h2>
+                    <p>Paste the Portfolio Item JSON you got from a booth host, choose a portfolio, then click Import.</p>
+
+                    <form id="import-form" novalidate>
+
+                        <label class="form-label" for="import-portfolio">
+                            Select portfolio *
+                        </label>
+                        <select class="form-select mb-3"
+                                id="import-portfolio"
+                                name="portfolioId">
+                            <option value="">Choose a portfolio</option>
+                        </select>
+
+                        <label class="form-label" for="import-json">
+                            Portfolio Item JSON *
+                        </label>
+                        <textarea class="form-control mb-3"
+                                  id="import-json"
+                                  name="itemJson"
+                                  rows="12"
+                                  placeholder='{ "title": "Spot the Scam", "type": "Digital Literacy", ... }'></textarea>
+
+                        <p class="form-error small mb-2"
+                           id="import-error"
+                           role="alert"></p>
+                        <p class="small text-success mb-2"
+                           id="import-success"
+                           role="status"></p>
+
+                        <div class="d-flex gap-2 mt-4 mb-2">
+                            <button class="theme-success btn-solid btn-styled flex-grow-1"
+                                    type="submit">
+                                Import
+                            </button>
+
+                            <button class="theme-success btn-subtle"
+                                    type="reset">
+                                Clear
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </section>
+
             <!-- Portfolio List -->
             <section id="portfolio-section">
                 <h2>My Portfolios</h2>
