@@ -1,0 +1,21 @@
+{
+  "title": "Spot the Scam",
+  "type": "Digital Literacy",
+  "date": "2026-11-24",
+  "role": "Participant",
+  "description": "Completed a phishing awareness challenge.",
+  "skills": [
+    "Critical Thinking",
+    "Problem Solving",
+    "Digital Literacy"
+  ],
+  "reflection": {
+    "whatIDid": "Looked at 5 example messages and marked which were scams.",
+    "whatILearned": "I learned how to identify online scams.",
+    "challenge": "Some scam messages looked very real.",
+    "nextStep": "Check the sender address before clicking any link."
+  },
+  "evidence": [
+    "https://example.com/spot-the-scam-result"
+  ]
+}

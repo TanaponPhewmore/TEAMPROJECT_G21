@@ -192,6 +192,9 @@ function renderPortfolios() {
         p.items.forEach(function (item) {
             card.querySelector('.item-list').appendChild(buildItem(item));
         });
+        card.querySelector('.export-btn').addEventListener('click', function () {
+        exportPortfolio(p);
+        });
         list.appendChild(card);
     });
 }
@@ -226,4 +229,18 @@ function buildItem(item) {
         el.querySelector('.display-evidence').appendChild(li);
     });
     return el;
+}
+// download one portfolio as a .json file
+function exportPortfolio(portfolio) {
+    const json = JSON.stringify(portfolio, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = portfolio.id + '.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
 }
