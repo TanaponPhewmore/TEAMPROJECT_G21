@@ -276,7 +276,7 @@ function buildItem(item) {
     });
     return el;
 }
- HEAD
+
 // download one portfolio as a .json file
 function exportPortfolio(portfolio) {
     const json = JSON.stringify(portfolio, null, 2);
@@ -439,6 +439,7 @@ form_import.addEventListener('submit', async function (event) {
         err.textContent = 'Please paste the Portfolio Item JSON.';
         return;
     }
+
  
     const result = readImportedItem(text);
     if (result.errors.length > 0) {
@@ -504,8 +505,8 @@ function startItemFromChallenge() {
     // Bring the form into view so the user can fill in the remaining fields
     form_item.scrollIntoView({ behavior: 'smooth' });
 }
+
 const btnDoChallenge = document.querySelector('#btn-do-challenge');
 if (btnDoChallenge !== null) {
     btnDoChallenge.addEventListener('click', startItemFromChallenge);
 }
- 1bbbe1e1c4e62bca073ad0fdda86c1f630295ebe
