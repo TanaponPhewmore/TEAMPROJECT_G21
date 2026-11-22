@@ -52,6 +52,9 @@ main > div {
 #portfolio-section {
   grid-column: 1 / -1;
 }
+#add-portfolio-item-section {
+  grid-column: 1 / -1;
+}
 
 @media (min-width: 768px) {
   main > div {
@@ -74,14 +77,20 @@ main > div > section > div,
 h2 { font-size: 1.25rem; font-weight: 600; }
 h3 { font-size: 1.05rem; font-weight: 600; }
 h4, h5 {
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--muted);
-  text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-top: 1rem;
+  display: inline;
 }
 section > div > p { color: var(--muted); }
+
+.display-item-title, .display-portfolio-name {
+  font-size: 1.2rem;
+  color: var(--text);
+  text-transform: capitalize;
+}
 
 /* Form fields */
 .form-label {

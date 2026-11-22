@@ -30,6 +30,14 @@
         </header>
 
         <div>
+            <!-- Portfolio List -->
+            <section id="portfolio-section">
+                <h2>My Portfolios</h2>
+                <div id="portfolio-list">
+                    <p id="empty-portfolio-message">No portfolios available yet.</p>
+                </div>
+            </section>
+
             <!-- Create portfolio -->
             <section>
                 <div>
@@ -91,8 +99,56 @@
                 </div>
             </section>
 
-            <!-- Add porfolio item -->
             <section>
+                <div>
+                    <h2>Import portfolio item</h2>
+                    <p>Paste the Portfolio Item JSON you got from a booth host, choose a portfolio, then click Import.</p>
+
+                    <form id="import-form" novalidate>
+
+                        <label class="form-label" for="import-portfolio">
+                            Select portfolio *
+                        </label>
+                        <select class="form-select mb-3"
+                                id="import-portfolio"
+                                name="portfolioId">
+                            <option value="">Choose a portfolio</option>
+                        </select>
+
+                        <label class="form-label" for="import-json">
+                            Portfolio Item JSON *
+                        </label>
+                        <textarea class="form-control mb-3"
+                                  id="import-json"
+                                  name="itemJson"
+                                  rows="10"
+                                  placeholder='{ "title": "Spot the Scam", "type": "Digital Literacy", ... }'></textarea>
+
+                        <p class="form-error small mb-2"
+                           id="import-error"
+                           role="alert"></p>
+                        <p class="small text-success mb-2"
+                           id="import-success"
+                           role="status"></p>
+
+                        <div class="d-flex gap-2 mt-4 mb-2">
+                            <button class="theme-success btn-solid btn-styled flex-grow-1"
+                                    type="submit">
+                                Import
+                            </button>
+
+                            <button class="theme-success btn-subtle"
+                                    type="reset">
+                                Clear
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </section>
+
+            <!-- Add porfolio item -->
+            <section id="add-portfolio-item-section">
                 <div>
                     <h2>Add portfolio item</h2>
                     <p>Add your experiences, projects, and learning achievements.</p>
@@ -275,13 +331,9 @@
                 </div>
             </section>
 
-            <!-- Portfolio List -->
-            <section id="portfolio-section">
-                <h2>My Portfolios</h2>
-                <div id="portfolio-list">
-                    <p id="empty-portfolio-message">No portfolios available yet.</p>
-                </div>
-            </section>
+            
+
+
 
             <!-- Portfolio Template -->
             <template id="portfolio-template">
@@ -290,14 +342,14 @@
                     <h3 class="display-portfolio-name"></h3>
                     <button type="button" class="export-btn theme-success btn-subtle">Export JSON</button>
                     <div class="portfolio-information">
-                        <h4>What I Enjoy</h4>
-                        <p class="display-enjoy"></p>
+                        <h4>I Enjoy to</h4>
+                        <span class="display-enjoy"></span>
 
-                        <h4>What I've Tried</h4>
-                        <p class="display-tried"></p>
+                        <h4>I've Tried</h4>
+                        <span class="display-tried"></span> <br>
 
-                        <h4>What I'm Curious About</h4>
-                        <p class="display-curious"></p>
+                        <h4>and I'm Curious About</h4>
+                        <span class="display-curious"></span> <br>
                     </div>
                     <section class="portfolio-items-section">
                         <h4>Portfolio Items</h4>
@@ -312,8 +364,8 @@
             <template id="item-template">
                 <article class="item-card">
                     <h4 class="display-item-title"></h4>
+                    <span><time class="display-item-date"></time> </span>
                     <p> <strong>Type:</strong> <span class="display-item-type"></span> </p>
-                    <p> <strong>Date:</strong> <time class="display-item-date"></time> </p>
                     <p> <strong>Role:</strong> <span class="display-item-role"></span> </p>
 
                     <h5>Description</h5>
