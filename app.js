@@ -391,7 +391,7 @@ function readImportedItem(text) {
 }
  
 // function for the import button
-form_import.addEventListener('submit', function (event) {
+form_import.addEventListener('submit', async function (event) {
     event.preventDefault();
  
     const err = document.querySelector('#import-error');
@@ -427,19 +427,38 @@ form_import.addEventListener('submit', function (event) {
         return;
     }
  
-    // the item json doesnt require to have id. its made here 
-    result.item.id = 'item' + String(portfolio.items.length + 1).padStart(3, '0');
- 
-    portfolio.items.push(result.item);
-    if (savePortfolios() === false) {
-        portfolio.items.pop();
-        err.textContent = 'Could not save. Please try again.';
-        return;
+    try {
+        const response = await fetch('api/items.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                portfolioId: portfolioId,
+                ...result.item
+            })
+        });
+
+        const saved = await response.json();
+
+        if (!response.ok) {
+            throw new Error(saved.error || 'Could not import the item.');
+        }
+
+        // saved is the item stored by the server (the server makes the id)
+        portfolio.items.push(saved);
+
+        fillDropdown();
+        renderPortfolios();
+
+        form_import.reset();
+        document.querySelector('#import-portfolio').value = portfolioId;
+        done.textContent = 'Imported "' + saved.title + '" into ' + portfolio.displayName + '.';
+
+    } catch (error) {
+        console.error('Could not import item:', error);
+        err.textContent = error.message;
     }
- 
-    form_import.reset();
-    document.querySelector('#import-portfolio').value = portfolioId;
-    done.textContent = 'Imported "' + result.item.title + '" into ' + portfolio.displayName + '.';
 });
 
 // Create a variable to store the challenge that the user is currently working on.
