@@ -20,6 +20,8 @@ async function loadPortfolios() {
     } catch (error) {
         console.error('Could not load portfolios:', error);
     }
+    fillDropdown();
+    renderPortfolios();
 }
 
 loadPortfolios();
@@ -439,3 +441,32 @@ form_import.addEventListener('submit', function (event) {
     document.querySelector('#import-portfolio').value = portfolioId;
     done.textContent = 'Imported "' + result.item.title + '" into ' + portfolio.displayName + '.';
 });
+
+// Create a variable to store the challenge that the user is currently working on.
+let currentChallenge = {
+    title: 'Test Challenge',
+    description: 'A test description',
+    evidencePrompt: 'Attach a link to your work'
+};
+
+// Runs when the user clicks "Done, save as Portfolio Item".
+// Pre-fills the add-item form with data from the current Challenge.
+function startItemFromChallenge() {
+    // No Challenge is open, so there is nothing to fill in
+    if (currentChallenge === null) {
+        return;
+    }
+
+    document.querySelector('#item-title').value = currentChallenge.title;
+    document.querySelector('#item-type').value = 'Challenge';
+    document.querySelector('#item-date').value = new Date().toLocaleDateString('en-CA');
+    document.querySelector('#item-description').value = currentChallenge.description;
+    document.querySelector('#item-evidence').placeholder = currentChallenge.evidencePrompt;
+
+    // Bring the form into view so the user can fill in the remaining fields
+    form_item.scrollIntoView({ behavior: 'smooth' });
+}
+const btnDoChallenge = document.querySelector('#btn-do-challenge');
+if (btnDoChallenge !== null) {
+    btnDoChallenge.addEventListener('click', startItemFromChallenge);
+}
