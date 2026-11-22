@@ -285,7 +285,7 @@ function exportPortfolio(portfolio) {
 
     const a = document.createElement('a');
     a.href = url;
-    a.download = portfolio.id + '.json';
+    a.download = 'my-portfolio.json';
     document.body.appendChild(a);
     a.click();
     a.remove();
