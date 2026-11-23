@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **เว็บไซต์ (Public URL)** | http://ec2-54-147-42-6.compute-1.amazonaws.com/ |
+| **เว็บไซต์ (Public URL)** | http://35.169.43.135/ |
 | **GitHub Repository** | https://github.com/TanaponPhewmore/TEAMPROJECT_G21 |
 
 > เปิดด้วย `http://` เท่านั้น (ไม่ใช่ `https://`) เพราะ Server ยังไม่ได้ตั้งค่า HTTPS
@@ -63,7 +63,7 @@ sudo chmod 750 /var/www/data
 
 โค้ดใน `api/storage.php` เก็บข้อมูลที่ `/var/www/data/portfolios.json` ซึ่งอยู่นอก `/var/www/html` จึงเปิดดาวน์โหลดผ่าน URL ตรง ๆ ไม่ได้ และมีไฟล์ล็อก `portfolios.lock` กันการบันทึกพร้อมกัน
 
-**5. เปิดเว็บ** ที่ http://ec2-54-147-42-6.compute-1.amazonaws.com/
+**5. เปิดเว็บ**
 
 **อัปเดตโค้ดภายหลัง**
 
