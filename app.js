@@ -14,8 +14,6 @@ async function loadPortfolios() {
 
         all_portfolios = await response.json();
 
-        fillDropdown();
-        renderPortfolios();
 
     } catch (error) {
         console.error('Could not load portfolios:', error);
