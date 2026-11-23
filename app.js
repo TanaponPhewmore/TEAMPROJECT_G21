@@ -407,6 +407,17 @@ function readImportedItem(text) {
     return { item: item, errors: errors };
 }
  
+// makes one text from the content of an item (without the id), used to find the same item twice
+function itemKey(item) {
+    return JSON.stringify([
+        item.title, item.type, item.date, item.role, item.description,
+        item.skills,
+        item.reflection.whatIDid, item.reflection.whatILearned,
+        item.reflection.challenge, item.reflection.nextStep,
+        item.evidence
+    ]);
+}
+
 // function for the import button
 form_import.addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -445,6 +456,16 @@ form_import.addEventListener('submit', async function (event) {
         return;
     }
  
+    // the same item cannot be imported twice into the same portfolio
+    const newKey = itemKey(result.item);
+    const alreadyThere = portfolio.items.some(function (existing) {
+        return itemKey(existing) === newKey;
+    });
+    if (alreadyThere) {
+        err.textContent = 'This item is already in this portfolio.';
+        return;
+    }
+
     try {
         const response = await fetch('api/items.php', {
             method: 'POST',
@@ -453,6 +474,7 @@ form_import.addEventListener('submit', async function (event) {
             },
             body: JSON.stringify({
                 portfolioId: portfolioId,
+                import: true,
                 ...result.item
             })
         });

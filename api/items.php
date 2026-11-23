@@ -29,6 +29,18 @@ $portfolios = readPortfolios();
 foreach ($portfolios as $i => $portfolio) {
     if (($portfolio['id'] ?? '') === $portfolioId) {
         $items = $portfolio['items'] ?? [];
+
+        // an imported item must not be added twice to the same portfolio
+        if (($input['import'] ?? false) === true) {
+            $newText = json_encode($item, JSON_UNESCAPED_UNICODE);
+            foreach ($items as $old) {
+                unset($old['id']);
+                if (json_encode($old, JSON_UNESCAPED_UNICODE) === $newText) {
+                    sendJson(['error' => 'This item is already in this portfolio.'], 409);
+                }
+            }
+        }
+
         // the server makes the id (an id sent by the browser is ignored)
         $newItem = ['id' => nextId('item', $items)] + $item;
         $portfolios[$i]['items'][] = $newItem;
