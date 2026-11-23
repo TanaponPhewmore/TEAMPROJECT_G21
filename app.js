@@ -456,8 +456,64 @@ form_import.addEventListener('submit', async function (event) {
         return;
     }
  
-    // the same item cannot be imported twice into the same portfolio
-    const newKey = itemKey(result.item);
+    pendingImport = result.item;
+    document.querySelector('#import-review-title').textContent = result.item.title;
+    document.querySelector('#import-review-info').textContent =
+        result.item.type + ' | ' + result.item.date + ' | will be saved in ' + portfolio.displayName;
+    document.querySelector('#import-whatIDid').value = result.item.reflection.whatIDid;
+    document.querySelector('#import-whatILearned').value = result.item.reflection.whatILearned;
+    document.querySelector('#import-challenge').value = result.item.reflection.challenge;
+    document.querySelector('#import-nextStep').value = result.item.reflection.nextStep;
+
+    const evidenceList = document.querySelector('#import-evidence-list');
+    evidenceList.innerHTML = '';
+    for (let i = 0; i < result.item.evidence.length; i++) {
+        const li = document.createElement('li');
+        li.textContent = result.item.evidence[i];
+        evidenceList.appendChild(li);
+    }
+    document.querySelector('#import-review').hidden = false;
+
+});
+
+let pendingImport = null;
+
+document.querySelector('#btn-import-save').addEventListener('click', async function () {
+    const err = document.querySelector('#import-error');
+    const done = document.querySelector('#import-success');
+    err.textContent = '';
+    done.textContent = '';
+
+    if (pendingImport === null) {
+        return;
+    }
+
+    const portfolioId = document.querySelector('#import-portfolio').value;
+    const portfolio = all_portfolios.find(function (p) {
+        return p.id === portfolioId;
+    });
+    if (portfolio === undefined) {
+        err.textContent = 'Please select a portfolio.';
+        return;
+    }
+
+    const item = {
+        ...pendingImport,
+        reflection: {
+            whatIDid: document.querySelector('#import-whatIDid').value.trim(),
+            whatILearned: document.querySelector('#import-whatILearned').value.trim(),
+            challenge: document.querySelector('#import-challenge').value.trim(),
+            nextStep: document.querySelector('#import-nextStep').value.trim()
+        }
+    };
+
+    const problems = validateItem(item);
+    if (problems.length > 0) {
+        err.textContent = problems.join('\n');
+        return;
+    }
+
+    const newKey = itemKey(item);
     const alreadyThere = portfolio.items.some(function (existing) {
         return itemKey(existing) === newKey;
     });
@@ -469,36 +525,32 @@ form_import.addEventListener('submit', async function (event) {
     try {
         const response = await fetch('api/items.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                portfolioId: portfolioId,
-                import: true,
-                ...result.item
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ portfolioId: portfolioId, import: true, ...item })
         });
-
         const saved = await response.json();
-
         if (!response.ok) {
             throw new Error(saved.error || 'Could not import the item.');
         }
 
-        // saved is the item stored by the server (the server makes the id)
         portfolio.items.push(saved);
-
         fillDropdown();
         renderPortfolios();
 
+        pendingImport = null;
         form_import.reset();
+        document.querySelector('#import-review').hidden = true;
         document.querySelector('#import-portfolio').value = portfolioId;
         done.textContent = 'Imported "' + saved.title + '" into ' + portfolio.displayName + '.';
-
     } catch (error) {
         console.error('Could not import item:', error);
         err.textContent = error.message;
     }
+});
+
+form_import.addEventListener('reset', function () {
+    pendingImport = null;
+    document.querySelector('#import-review').hidden = true;
 });
 
 // Create a variable to store the challenge that the user is currently working on.

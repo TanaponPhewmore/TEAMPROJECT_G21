@@ -124,6 +124,30 @@
                                   rows="10"
                                   placeholder='{ "title": "Spot the Scam", "type": "Digital Literacy", ... }'></textarea>
 
+                        <div id="import-review" hidden>
+                            <h3 class="h5" id="import-review-title"></h3>
+                            <p class="small" id="import-review-info"></p>
+
+                            <label class="form-label" for="import-whatIDid">What I did *</label>
+                            <textarea class="form-control mb-2" id="import-whatIDid" rows="2"></textarea>
+
+                            <label class="form-label" for="import-whatILearned">What I learned *</label>
+                            <textarea class="form-control mb-2" id="import-whatILearned" rows="2"></textarea>
+
+                            <label class="form-label" for="import-challenge">Challenge *</label>
+                            <textarea class="form-control mb-2" id="import-challenge" rows="2"></textarea>
+
+                            <label class="form-label" for="import-nextStep">Next step *</label>
+                            <textarea class="form-control mb-2" id="import-nextStep" rows="2"></textarea>
+
+                            <p class="small mb-1">Evidence:</p>
+                            <ul class="small" id="import-evidence-list"></ul>
+
+                            <button class="theme-success btn-solid btn-styled" type="button" id="btn-import-save">
+                                Save to portfolio
+                            </button>
+                        </div>
+
                         <p class="form-error small mb-2"
                            id="import-error"
                            role="alert"></p>
